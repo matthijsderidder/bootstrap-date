@@ -1,0 +1,69 @@
+{
+  "name": "bootstrap-date",
+  "version": "0.1.0",
+  "description": "Date picker based on Bootstrap.",
+  "author": "M. de Ridder",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthijsderidder/bootstrap-date.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matthijsderidder/bootstrap-date/issues"
+  },
+  "homepage": "https://github.com/matthijsderidder/bootstrap-date#readme",
+  "keywords": [
+    "bootstrap",
+    "calendar",
+    "date",
+    "datepicker",
+    "month",
+    "css",
+    "scss"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/js/bootstrap-date.js",
+  "module": "./dist/js/bootstrap-date.js",
+  "style": "./dist/css/bootstrap-date.css",
+  "sass": "./src/scss/bootstrap-date.scss",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "style": "./dist/css/bootstrap-date.css",
+      "sass": "./src/scss/bootstrap-date.scss",
+      "import": "./dist/js/bootstrap-date.js",
+      "default": "./dist/js/bootstrap-date.js"
+    },
+    "./css": "./dist/css/bootstrap-date.css",
+    "./css/min": "./dist/css/bootstrap-date.min.css",
+    "./js": "./dist/js/bootstrap-date.js",
+    "./js/min": "./dist/js/bootstrap-date.min.js",
+    "./scss": "./src/scss/bootstrap-date.scss",
+    "./dist/*": "./dist/*",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "jsdelivr": "dist/js/bootstrap-date.min.js",
+  "unpkg": "dist/js/bootstrap-date.min.js",
+  "scripts": {
+    "build:css": "sass src/scss/bootstrap-date.scss dist/css/bootstrap-date.css --style=expanded --no-source-map && sass src/scss/bootstrap-date.scss dist/css/bootstrap-date.min.css --style=compressed --no-source-map",
+    "build:js": "mkdir -p dist/js && cp src/js/bootstrap-date.js dist/js/bootstrap-date.js && terser src/js/bootstrap-date.js --compress --mangle --output dist/js/bootstrap-date.min.js",
+    "build": "npm run build:css && npm run build:js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2",
+    "terser": "^5.44.0"
+  },
+  "peerDependencies": {
+    "bootstrap": ">=6.0.0-alpha.1"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.13.2"
+  }
+}
