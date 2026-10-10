@@ -33,8 +33,8 @@ Or load the published files from jsDelivr:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.4-beta/dist/css/bootstrap-date.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.4-beta/dist/js/bootstrap-date.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.5-beta/dist/css/bootstrap-date.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.5-beta/dist/js/bootstrap-date.min.js"></script>
 ```
 
 Local builds use the same paths under `dist/`:
@@ -47,6 +47,10 @@ Local builds use the same paths under `dist/`:
 The script initializes the calendar when `.month-picker`, `#month-grid`, `#date-input`, `#month-label`, `#prev-month` and `#next-month` are present. The widget overlays the form under the date input. See `examples/bootstrap-date.html`.
 
 ## Changelog
+
+### 0.1.5-beta
+
+- Release title uses `<version>-beta`.
 
 ### 0.1.4-beta
 
