@@ -93,6 +93,26 @@
   color: var(--bs-body-color);
 }
 
+.month-viewport {
+  overflow: hidden;
+}
+
+.month-track {
+  display: flex;
+  width: 200%;
+  transition: transform 0.28s ease;
+}
+
+.month-track > .month-grid {
+  flex: 0 0 50%;
+  width: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .month-track {
+    transition: none;
+  }
+}
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

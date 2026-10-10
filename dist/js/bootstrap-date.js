@@ -26,6 +26,12 @@
     var selected = parseDate(dateInput.value) || new Date();
     var view = new Date(selected.getFullYear(), selected.getMonth(), 1);
     var mode = "month";
+    var sliding = false;
+    var viewport = document.createElement("div");
+
+    viewport.className = "month-viewport";
+    grid.parentNode.insertBefore(viewport, grid);
+    viewport.append(grid);
 
     function parseDate(value) {
       if (!value) return null;
@@ -124,6 +130,63 @@
       else renderMonth();
     }
 
+    function fillGrid(target) {
+      var current = grid;
+      grid = target;
+      renderMonth();
+      grid = current;
+    }
+
+    function slideMonth(direction) {
+      if (sliding) return;
+      updateLabel();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        renderMonth();
+        return;
+      }
+
+      sliding = true;
+      var outgoing = grid;
+      var incoming = document.createElement("div");
+      var track = document.createElement("div");
+      incoming.className = "month-grid";
+      incoming.setAttribute("role", "grid");
+      incoming.setAttribute("aria-label", "Kies een dag");
+      fillGrid(incoming);
+      track.className = "month-track";
+
+      if (direction > 0) {
+        track.append(outgoing, incoming);
+        track.style.transform = "translateX(0)";
+      } else {
+        track.append(incoming, outgoing);
+        track.style.transform = "translateX(-50%)";
+      }
+      viewport.append(track);
+
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          track.style.transform = direction > 0 ? "translateX(-50%)" : "translateX(0)";
+        });
+      });
+
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        incoming.id = "month-grid";
+        viewport.append(incoming);
+        track.remove();
+        grid = incoming;
+        sliding = false;
+      }
+      track.addEventListener("transitionend", function (event) {
+        if (event.target !== track || event.propertyName !== "transform") return;
+        finish();
+      });
+      window.setTimeout(finish, 400);
+    }
+
     function showWidget() {
       if (!widget) return;
       widget.hidden = false;
@@ -142,14 +205,22 @@
     }
 
     prev.addEventListener("click", function () {
-      if (mode === "year") view = new Date(view.getFullYear() - 12, view.getMonth(), 1);
-      else view = new Date(view.getFullYear(), view.getMonth() - 1, 1);
-      render();
+      if (mode === "year") {
+        view = new Date(view.getFullYear() - 12, view.getMonth(), 1);
+        render();
+        return;
+      }
+      view = new Date(view.getFullYear(), view.getMonth() - 1, 1);
+      slideMonth(-1);
     });
     next.addEventListener("click", function () {
-      if (mode === "year") view = new Date(view.getFullYear() + 12, view.getMonth(), 1);
-      else view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
-      render();
+      if (mode === "year") {
+        view = new Date(view.getFullYear() + 12, view.getMonth(), 1);
+        render();
+        return;
+      }
+      view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
+      slideMonth(1);
     });
     label.addEventListener("click", function () {
       mode = mode === "month" ? "year" : "month";
