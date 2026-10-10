@@ -45,3 +45,22 @@ Local builds use the same paths under `dist/`:
 ```
 
 The script initializes the calendar when `.month-picker`, `#month-grid`, `#date-input`, `#month-label`, `#prev-month` and `#next-month` are present. The widget overlays the form under the date input. See `examples/bootstrap-date.html`.
+
+## Changelog
+
+### 0.1.2-beta
+
+- Published as a beta. It does not replace the `latest` tag.
+- Prerelease publishes use their npm dist-tag.
+
+### 0.1.1
+
+- Published release after the repository reset.
+
+### 0.1.0
+
+- Initial release.
+- Month calendar under a date input, with a calendar icon.
+- Month arrows and a year view.
+- Widget uses `theme-secondary theme-subtle`. Unselected days use `theme-inverse theme-subtle`. The selected day uses `bg-primary`.
+- Requires Bootstrap 6 for form adornments.
