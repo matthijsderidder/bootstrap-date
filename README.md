@@ -25,7 +25,7 @@ examples/                    HTML that points at dist
 Install from npm:
 
 ```bash
-npm install bootstrap-date bootstrap@6 bootstrap-icons
+npm install bootstrap-date
 ```
 
 Or load the published files from jsDelivr:
@@ -51,6 +51,7 @@ The script initializes the calendar when `.month-picker`, `#month-grid`, `#date-
 ### 0.1.3-beta
 
 - Added a version changelog to the README.
+- Bootstrap 6 is a dependency.
 
 ### 0.1.2-beta
 
