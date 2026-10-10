@@ -23,7 +23,7 @@
     var toggle = document.querySelector("#month-toggle");
     if (!grid || !dateInput || !label || !prev || !next) return;
 
-    var selected = parseDate(dateInput.value) || new Date(2026, 9, 10);
+    var selected = parseDate(dateInput.value) || new Date();
     var view = new Date(selected.getFullYear(), selected.getMonth(), 1);
     var mode = "month";
 
