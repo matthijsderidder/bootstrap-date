@@ -44,7 +44,14 @@ Local builds use the same paths under `dist/`:
 <script src="dist/js/bootstrap-date.min.js"></script>
 ```
 
-The script initializes the calendar when `.month-picker`, `#month-grid`, `#date-input`, `#month-label`, `#prev-month` and `#next-month` are present. The widget overlays the form under the date input. Previous and next month slide in from the left and right. See `examples/bootstrap-date.html`.
+Add `bs-date` to a date field. The script builds the calendar and places it under that field, so it works in an existing Bootstrap form.
+
+```html
+<label class="form-label" for="date">Date</label>
+<input type="date" class="form-control bs-date" id="date">
+```
+
+Previous and next month slide in from the left and right. See `examples/bootstrap-date.html`.
 
 ## Changelog
 

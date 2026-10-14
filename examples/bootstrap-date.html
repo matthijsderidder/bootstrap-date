@@ -11,33 +11,9 @@
 <body>
   <div class="container p-4">
     <h1 class="h3 mb-3">Bootstrap Date</h1>
-    <form>
-      <div class="month-picker">
-        <label class="form-label" for="date-input">Date</label>
-        <div class="form-control form-adorn form-adorn-end">
-          <button class="form-adorn-icon month-toggle" type="button" id="month-toggle" aria-label="Kalender" aria-pressed="false">
-            <i class="bi bi-calendar" aria-hidden="true"></i>
-          </button>
-          <input type="date" class="form-ghost" id="date-input" lang="nl">
-        </div>
-        <div class="month-widget card theme-secondary theme-subtle" id="month-widget">
-          <div class="month-header">
-            <button class="btn btn-link month-label" type="button" id="month-label" aria-label="Wissel naar jaarweergave">
-              <span id="month-label-text">oktober 2026</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
-            </button>
-            <div class="month-arrows">
-              <button class="btn btn-link month-arrow" type="button" id="prev-month" aria-label="Vorige maand">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>
-              </button>
-              <button class="btn btn-link month-arrow" type="button" id="next-month" aria-label="Volgende maand">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="month-grid" id="month-grid" role="grid" aria-label="Kies een dag"></div>
-        </div>
-      </div>
+    <form class="col-md-6">
+      <label class="form-label" for="date-input">Date</label>
+      <input type="date" class="form-control bs-date" id="date-input" lang="nl">
     </form>
   </div>
   <script src="../dist/js/bootstrap-date.min.js"></script>

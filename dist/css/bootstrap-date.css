@@ -1,6 +1,5 @@
 .month-picker {
   position: relative;
-  width: 20rem;
 }
 .month-picker input[type=date]::-webkit-calendar-picker-indicator {
   display: none;

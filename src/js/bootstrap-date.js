@@ -10,20 +10,75 @@
     "januari", "februari", "maart", "april", "mei", "juni",
     "juli", "augustus", "september", "oktober", "november", "december"
   ];
+  var LEFT = "M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z";
+  var RIGHT = "M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z";
+  var DOWN = "M7 10l5 5 5-5z";
 
-  function init() {
-    var picker = document.querySelector(".month-picker");
-    var grid = document.querySelector("#month-grid");
-    var widget = document.querySelector("#month-widget");
-    var dateInput = document.querySelector("#date-input");
-    var label = document.querySelector("#month-label");
-    var labelText = document.querySelector("#month-label-text");
-    var prev = document.querySelector("#prev-month");
-    var next = document.querySelector("#next-month");
-    var toggle = document.querySelector("#month-toggle");
-    if (!grid || !dateInput || !label || !prev || !next) return;
+  function svg(path) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + path + '"></path></svg>';
+  }
 
-    var selected = parseDate(dateInput.value) || new Date();
+  function mount(field) {
+    if (field.dataset.bsDate === "ready") return;
+    field.dataset.bsDate = "ready";
+
+    var host = field.closest(".form-control") || field;
+    var picker = host.closest(".month-picker");
+    if (!picker) {
+      picker = document.createElement("div");
+      picker.className = "month-picker";
+      host.parentNode.insertBefore(picker, host);
+      picker.append(host);
+    }
+
+    var adorn = field.closest(".form-adorn");
+    if (!adorn && field.classList.contains("form-control")) {
+      adorn = document.createElement("div");
+      adorn.className = "form-control form-adorn form-adorn-end";
+      field.parentNode.insertBefore(adorn, field);
+      adorn.append(field);
+      field.classList.remove("form-control");
+      field.classList.add("form-ghost");
+    }
+
+    var toggle = picker.querySelector(".month-toggle");
+    if (!toggle && adorn) {
+      toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "form-adorn-icon month-toggle";
+      toggle.setAttribute("aria-label", "Kalender");
+      toggle.setAttribute("aria-pressed", "false");
+      toggle.innerHTML = '<i class="bi bi-calendar" aria-hidden="true"></i>';
+      adorn.insertBefore(toggle, adorn.firstChild);
+    }
+
+    var widget = picker.querySelector(".month-widget");
+    if (!widget) {
+      widget = document.createElement("div");
+      widget.className = "month-widget card theme-secondary theme-subtle";
+      widget.hidden = true;
+      widget.innerHTML =
+        '<div class="month-header">' +
+          '<button class="btn btn-link month-label" type="button" aria-label="Wissel naar jaarweergave">' +
+            '<span class="month-label-text"></span>' + svg(DOWN) +
+          "</button>" +
+          '<div class="month-arrows">' +
+            '<button class="btn btn-link month-arrow month-prev" type="button" aria-label="Vorige maand">' + svg(LEFT) + "</button>" +
+            '<button class="btn btn-link month-arrow month-next" type="button" aria-label="Volgende maand">' + svg(RIGHT) + "</button>" +
+          "</div>" +
+        "</div>" +
+        '<div class="month-grid" role="grid" aria-label="Kies een dag"></div>';
+      picker.append(widget);
+    }
+
+    var grid = widget.querySelector(".month-grid");
+    var label = widget.querySelector(".month-label");
+    var labelText = widget.querySelector(".month-label-text");
+    var prev = widget.querySelector(".month-prev");
+    var next = widget.querySelector(".month-next");
+    if (!grid || !label || !labelText || !prev || !next) return;
+
+    var selected = parseDate(field.value) || new Date();
     var view = new Date(selected.getFullYear(), selected.getMonth(), 1);
     var mode = "month";
     var sliding = false;
@@ -53,7 +108,7 @@
     }
 
     function writeInput() {
-      dateInput.value = iso(selected);
+      field.value = iso(selected);
     }
 
     function updateLabel() {
@@ -81,9 +136,7 @@
       var offset = (first.getDay() + 6) % 7;
       var days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
       var index;
-      for (index = 0; index < offset; index += 1) {
-        grid.append(document.createElement("div"));
-      }
+      for (index = 0; index < offset; index += 1) grid.append(document.createElement("div"));
       for (index = 1; index <= days; index += 1) {
         var date = new Date(view.getFullYear(), view.getMonth(), index);
         var button = document.createElement("button");
@@ -174,7 +227,6 @@
       function finish() {
         if (done) return;
         done = true;
-        incoming.id = "month-grid";
         viewport.append(incoming);
         track.remove();
         grid = incoming;
@@ -188,19 +240,17 @@
     }
 
     function showWidget() {
-      if (!widget) return;
       widget.hidden = false;
       if (toggle) toggle.setAttribute("aria-pressed", "true");
     }
 
     function hideWidget() {
-      if (!widget) return;
       widget.hidden = true;
       if (toggle) toggle.setAttribute("aria-pressed", "false");
     }
 
     function toggleWidget() {
-      if (widget && widget.hidden) showWidget();
+      if (widget.hidden) showWidget();
       else hideWidget();
     }
 
@@ -227,30 +277,32 @@
       render();
     });
     if (toggle) toggle.addEventListener("click", toggleWidget);
-    dateInput.addEventListener("focus", showWidget);
-    dateInput.addEventListener("input", function () {
-      var nextDate = parseDate(dateInput.value);
+    field.addEventListener("focus", showWidget);
+    field.addEventListener("input", function () {
+      var nextDate = parseDate(field.value);
       if (!nextDate) return;
       selected = nextDate;
       view = new Date(selected.getFullYear(), selected.getMonth(), 1);
       mode = "month";
       render();
     });
-    if (picker) {
-      picker.addEventListener("mousedown", function (event) {
-        if (event.target === dateInput) return;
-        if (toggle && toggle.contains(event.target)) return;
-        event.preventDefault();
-      });
-    }
+    picker.addEventListener("mousedown", function (event) {
+      if (event.target === field) return;
+      if (toggle && toggle.contains(event.target)) return;
+      event.preventDefault();
+    });
     document.addEventListener("mousedown", function (event) {
-      if (!picker || picker.contains(event.target)) return;
+      if (picker.contains(event.target)) return;
       hideWidget();
     });
 
-    writeInput();
+    if (!field.value) field.value = iso(selected);
     render();
     hideWidget();
+  }
+
+  function init() {
+    document.querySelectorAll(".bs-date").forEach(mount);
   }
 
   if (document.readyState === "loading") {
