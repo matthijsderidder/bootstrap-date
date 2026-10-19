@@ -1,29 +1,6 @@
 .month-picker {
   position: relative;
 }
-.month-picker input[type=date]::-webkit-calendar-picker-indicator {
-  display: none;
-  appearance: none;
-}
-
-.month-toggle {
-  pointer-events: auto;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin: -0.25rem;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--bs-form-adorn-icon-color, var(--bs-secondary-color));
-}
-.month-toggle .bi {
-  font-size: 1rem;
-  line-height: 1;
-}
-.month-toggle:hover, .month-toggle:focus-visible {
-  background-color: var(--bs-bg-3);
-  color: var(--bs-body-color);
-}
 
 .month-widget {
   position: absolute;
@@ -33,8 +10,8 @@
   width: 20rem;
   margin-top: 0.25rem;
   padding: 0.75rem 0.75rem 1rem;
-  background-color: var(--bs-secondary-bg-subtle);
-  color: var(--bs-secondary-fg);
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
 }
 
 .month-header {
@@ -88,7 +65,7 @@
   fill: currentColor;
 }
 .btn.month-arrow:hover, .btn.month-arrow:focus-visible {
-  background-color: var(--bs-bg-3);
+  background-color: var(--bs-tertiary-bg);
   color: var(--bs-body-color);
 }
 
@@ -141,10 +118,10 @@
   appearance: none;
 }
 .month-day:hover, .month-day:focus-visible {
-  background-color: var(--bs-bg-3);
+  background-color: var(--bs-tertiary-bg);
 }
 .month-day.bg-primary, .month-day.bg-primary:hover, .month-day.bg-primary:focus-visible {
-  background-color: var(--bs-primary-bg);
+  background-color: var(--bs-primary);
   color: var(--bs-white, #fff);
 }
 
@@ -157,9 +134,9 @@
   color: inherit;
 }
 .month-year:hover, .month-year:focus-visible {
-  background-color: var(--bs-bg-3);
+  background-color: var(--bs-tertiary-bg);
 }
 .month-year.bg-primary, .month-year.bg-primary:hover, .month-year.bg-primary:focus-visible {
-  background-color: var(--bs-primary-bg);
+  background-color: var(--bs-primary);
   color: var(--bs-white, #fff);
 }

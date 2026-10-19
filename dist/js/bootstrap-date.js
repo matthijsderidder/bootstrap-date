@@ -31,31 +31,10 @@
       picker.append(host);
     }
 
-    var adorn = field.closest(".form-adorn");
-    if (!adorn && field.classList.contains("form-control")) {
-      adorn = document.createElement("div");
-      adorn.className = "form-control form-adorn form-adorn-end";
-      field.parentNode.insertBefore(adorn, field);
-      adorn.append(field);
-      field.classList.remove("form-control");
-      field.classList.add("form-ghost");
-    }
-
-    var toggle = picker.querySelector(".month-toggle");
-    if (!toggle && adorn) {
-      toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.className = "form-adorn-icon month-toggle";
-      toggle.setAttribute("aria-label", "Kalender");
-      toggle.setAttribute("aria-pressed", "false");
-      toggle.innerHTML = '<i class="bi bi-calendar" aria-hidden="true"></i>';
-      adorn.insertBefore(toggle, adorn.firstChild);
-    }
-
     var widget = picker.querySelector(".month-widget");
     if (!widget) {
       widget = document.createElement("div");
-      widget.className = "month-widget card theme-secondary theme-subtle";
+      widget.className = "month-widget card bg-body-secondary";
       widget.hidden = true;
       widget.innerHTML =
         '<div class="month-header">' +
@@ -143,7 +122,7 @@
         button.type = "button";
         button.className = sameDay(date, selected)
           ? "month-day bg-primary text-white"
-          : "month-day theme-inverse theme-subtle";
+          : "month-day bg-body-tertiary";
         button.textContent = String(index);
         button.setAttribute("aria-pressed", sameDay(date, selected) ? "true" : "false");
         button.addEventListener("click", function (event) {
@@ -241,17 +220,10 @@
 
     function showWidget() {
       widget.hidden = false;
-      if (toggle) toggle.setAttribute("aria-pressed", "true");
     }
 
     function hideWidget() {
       widget.hidden = true;
-      if (toggle) toggle.setAttribute("aria-pressed", "false");
-    }
-
-    function toggleWidget() {
-      if (widget.hidden) showWidget();
-      else hideWidget();
     }
 
     prev.addEventListener("click", function () {
@@ -276,8 +248,8 @@
       mode = mode === "month" ? "year" : "month";
       render();
     });
-    if (toggle) toggle.addEventListener("click", toggleWidget);
     field.addEventListener("focus", showWidget);
+    field.addEventListener("blur", hideWidget);
     field.addEventListener("input", function () {
       var nextDate = parseDate(field.value);
       if (!nextDate) return;
@@ -288,7 +260,6 @@
     });
     picker.addEventListener("mousedown", function (event) {
       if (event.target === field) return;
-      if (toggle && toggle.contains(event.target)) return;
       event.preventDefault();
     });
     document.addEventListener("mousedown", function (event) {

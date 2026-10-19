@@ -18,7 +18,7 @@ dist/                        generated, do not edit
 examples/                    HTML that points at dist
 ```
 
-`npm run build` compiles `src` into `dist`. Bootstrap 6 is required. The date field uses [form adornments](https://getbootstrap.com/docs/6.0/forms/form-adorn/), which Bootstrap 5.3 does not have. The calendar icon comes from bootstrap-icons.
+`npm run build` compiles `src` into `dist`. Bootstrap 5.3.8 or later 5.3 is required. The browser supplies the date field icon. Focus opens the calendar and blur closes it.
 
 ## Usage
 
@@ -31,10 +31,9 @@ npm install bootstrap-date
 Or load the published files from jsDelivr:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-date@0.2.0/dist/css/bootstrap-date.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-date@0.2.0/dist/js/bootstrap-date.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.8-beta/dist/css/bootstrap-date.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-date@0.1.8-beta/dist/js/bootstrap-date.min.js"></script>
 ```
 
 Local builds use the same paths under `dist/`:
@@ -54,6 +53,11 @@ Add `bs-date` to a date field. The script builds the calendar and places it unde
 Previous and next month slide in from the left and right. See `examples/bootstrap-date.html`.
 
 ## Changelog
+
+### 0.1.8-beta
+
+- Requires Bootstrap 5.3.8 instead of Bootstrap 6.
+- Removed the adorn button. The browser date icon stays, and focus and blur still open and close the calendar.
 
 ### 0.2.0
 

@@ -4,33 +4,6 @@
 
 .month-picker {
   position: relative;
-
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    appearance: none;
-  }
-}
-
-.month-toggle {
-  pointer-events: auto;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin: -0.25rem;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--bs-form-adorn-icon-color, var(--bs-secondary-color));
-
-  .bi {
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--bs-bg-3);
-    color: var(--bs-body-color);
-  }
 }
 
 .month-widget {
@@ -41,8 +14,8 @@
   width: 20rem;
   margin-top: 0.25rem;
   padding: 0.75rem 0.75rem 1rem;
-  background-color: var(--bs-secondary-bg-subtle);
-  color: var(--bs-secondary-fg);
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
 }
 
 .month-header {
@@ -101,7 +74,7 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--bs-bg-3);
+    background-color: var(--bs-tertiary-bg);
     color: var(--bs-body-color);
   }
 }
@@ -157,13 +130,13 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--bs-bg-3);
+    background-color: var(--bs-tertiary-bg);
   }
 
   &.bg-primary,
   &.bg-primary:hover,
   &.bg-primary:focus-visible {
-    background-color: var(--bs-primary-bg);
+    background-color: var(--bs-primary);
     color: var(--bs-white, #fff);
   }
 }
@@ -178,13 +151,13 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--bs-bg-3);
+    background-color: var(--bs-tertiary-bg);
   }
 
   &.bg-primary,
   &.bg-primary:hover,
   &.bg-primary:focus-visible {
-    background-color: var(--bs-primary-bg);
+    background-color: var(--bs-primary);
     color: var(--bs-white, #fff);
   }
 }
