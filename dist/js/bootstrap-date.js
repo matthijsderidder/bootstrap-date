@@ -22,40 +22,29 @@
     if (field.dataset.bsDate === "ready") return;
     field.dataset.bsDate = "ready";
 
-    var host = field.closest(".form-control") || field;
-    var picker = host.closest(".month-picker");
-    if (!picker) {
-      picker = document.createElement("div");
-      picker.className = "month-picker";
-      host.parentNode.insertBefore(picker, host);
-      picker.append(host);
-    }
-
-    var widget = picker.querySelector(".month-widget");
-    if (!widget) {
-      widget = document.createElement("div");
-      widget.className = "month-widget card bg-body-secondary";
-      widget.hidden = true;
-      widget.innerHTML =
-        '<div class="month-header">' +
-          '<button class="btn btn-link month-label" type="button" aria-label="Wissel naar jaarweergave">' +
-            '<span class="month-label-text"></span>' + svg(DOWN) +
-          "</button>" +
-          '<div class="month-arrows">' +
-            '<button class="btn btn-link month-arrow month-prev" type="button" aria-label="Vorige maand">' + svg(LEFT) + "</button>" +
-            '<button class="btn btn-link month-arrow month-next" type="button" aria-label="Volgende maand">' + svg(RIGHT) + "</button>" +
-          "</div>" +
+    var widget = document.createElement("div");
+    widget.className = "month-widget card bg-body-secondary";
+    widget.hidden = true;
+    widget.innerHTML =
+      '<div class="month-header">' +
+        '<button class="btn btn-link month-label" type="button" aria-label="Wissel naar jaarweergave">' +
+          '<span class="month-label-text"></span>' + svg(DOWN) +
+        "</button>" +
+        '<div class="month-arrows">' +
+          '<button class="btn btn-link month-arrow month-prev" type="button" aria-label="Vorige maand">' + svg(LEFT) + "</button>" +
+          '<button class="btn btn-link month-arrow month-next" type="button" aria-label="Volgende maand">' + svg(RIGHT) + "</button>" +
         "</div>" +
-        '<div class="month-grid" role="grid" aria-label="Kies een dag"></div>';
-      picker.append(widget);
-      document.body.append(widget);
-    }
+      "</div>" +
+      '<div class="month-grid" role="grid" aria-label="Kies een dag"></div>';
+    document.body.append(widget);
 
     function placeWidget() {
       var rect = field.getBoundingClientRect();
       var width = widget.offsetWidth || 320;
       var left = rect.left;
       if (left + width > window.innerWidth - 8) left = Math.max(8, window.innerWidth - width - 8);
+      widget.style.position = "fixed";
+      widget.style.zIndex = "1080";
       widget.style.top = Math.round(rect.bottom + 4) + "px";
       widget.style.left = Math.round(left) + "px";
     }
