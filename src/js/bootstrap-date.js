@@ -48,6 +48,16 @@
         "</div>" +
         '<div class="month-grid" role="grid" aria-label="Kies een dag"></div>';
       picker.append(widget);
+      document.body.append(widget);
+    }
+
+    function placeWidget() {
+      var rect = field.getBoundingClientRect();
+      var width = widget.offsetWidth || 320;
+      var left = rect.left;
+      if (left + width > window.innerWidth - 8) left = Math.max(8, window.innerWidth - width - 8);
+      widget.style.top = Math.round(rect.bottom + 4) + "px";
+      widget.style.left = Math.round(left) + "px";
     }
 
     var grid = widget.querySelector(".month-grid");
@@ -220,6 +230,7 @@
 
     function showWidget() {
       widget.hidden = false;
+      placeWidget();
     }
 
     function hideWidget() {
@@ -250,6 +261,15 @@
     });
     field.addEventListener("focus", showWidget);
     field.addEventListener("blur", hideWidget);
+    widget.addEventListener("mousedown", function (event) {
+      event.preventDefault();
+    });
+    document.addEventListener("mousedown", function (event) {
+      if (field === event.target || widget.contains(event.target)) return;
+      hideWidget();
+    });
+    window.addEventListener("resize", placeWidget);
+    window.addEventListener("scroll", placeWidget, true);
     field.addEventListener("input", function () {
       var nextDate = parseDate(field.value);
       if (!nextDate) return;
@@ -257,14 +277,6 @@
       view = new Date(selected.getFullYear(), selected.getMonth(), 1);
       mode = "month";
       render();
-    });
-    picker.addEventListener("mousedown", function (event) {
-      if (event.target === field) return;
-      event.preventDefault();
-    });
-    document.addEventListener("mousedown", function (event) {
-      if (picker.contains(event.target)) return;
-      hideWidget();
     });
 
     if (!field.value) field.value = iso(selected);
