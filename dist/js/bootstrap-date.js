@@ -86,7 +86,11 @@
     }
 
     function writeInput() {
-      field.value = iso(selected);
+      var next = iso(selected);
+      if (field.value === next) return;
+      field.value = next;
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+      field.dispatchEvent(new Event("change", { bubbles: true }));
     }
 
     function updateLabel() {
