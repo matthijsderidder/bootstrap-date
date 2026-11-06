@@ -85,12 +85,23 @@
       return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
     }
 
+    function notify(field) {
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+      field.dispatchEvent(new Event("change", { bubbles: true }));
+      var jq = window.jQuery || window.$;
+      if (jq && jq.fn) {
+        jq(field).triggerHandler("input");
+        jq(field).triggerHandler("change");
+      }
+    }
+
     function writeInput() {
       var next = iso(selected);
       if (field.value === next) return;
-      field.value = next;
-      field.dispatchEvent(new Event("input", { bubbles: true }));
-      field.dispatchEvent(new Event("change", { bubbles: true }));
+      var setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
+      if (setter && setter.set) setter.set.call(field, next);
+      else field.value = next;
+      notify(field);
     }
 
     function updateLabel() {
